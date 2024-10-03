@@ -1,15 +1,20 @@
-import { useFruits } from '../hooks/useFruits.ts'
+import { useQuery } from '@tanstack/react-query'
+import { getIdeas } from '../apis/ideas.ts'
+import { Idea } from '../../models/ideas.ts'
 
 function App() {
-  const { data } = useFruits()
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ['ideas'],
+    queryFn: getIdeas,
+  })
+  
 
-  return (
-    <>
-      <div className="app">
-        <h1>Fullstack Boilerplate - with Fruits!</h1>
-        <ul>{data && data.map((fruit) => <li key={fruit}>{fruit}</li>)}</ul>
-      </div>
-    </>
+  if (isError) return <p>The Idea Fusioner is malfunctioning!</p>
+  if (isLoading) return <p>Hold your horses pls.</p>
+  if (data) return (
+    <ul>
+      {data.map((idea:Idea) => <li key={idea.id}>{idea.idea}</li>)}
+    </ul>
   )
 }
 
