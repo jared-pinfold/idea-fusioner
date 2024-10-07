@@ -4,7 +4,7 @@ import * as db from '../db/ideas.ts'
 
 const router = Router()
 
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
   try {
     const ideas = await db.getAllIdeas()
 

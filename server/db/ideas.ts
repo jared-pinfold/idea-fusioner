@@ -1,5 +1,5 @@
 import connection from './connection.ts'
-import { Idea } from '../../models/ideas.ts'
+import { Idea } from '../../models/models.ts'
 
 export async function getAllIdeas(db = connection): Promise<Idea[]> {
   return db('ideas').select()
